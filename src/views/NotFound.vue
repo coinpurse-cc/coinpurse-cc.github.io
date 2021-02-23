@@ -1,7 +1,8 @@
 <template>
-  <div class="flex items-center justify-center">
-    Not Found!
-    <router-link to="/">Go Home</router-link>
+  <div class="flex flex-col items-center justify-center">
+   <div class="m-4 text-xl">  Not Found!  </div>
+     
+   <div>  <router-link to="/">Go Home</router-link>  </div>
   </div>
 </template>
 
