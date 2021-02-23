@@ -292,18 +292,8 @@
                        
                        </div>
 
-
-
-
-                      <div class="whitespace-sm"></div>
-                      <div v-if="lavaMetadata && !broadcastResults">
-
-                          <div class="button inline-block bg-purple-500 hover:bg-purple-700 text-white font-bold m-2 py-2 px-4 rounded cursor-pointer" v-if="lavaMetadata" v-on:click="actionSubmitLava"> Submit Lava Tx </div>
-
-                          <div class="loader inline-block" v-if="pendingTransaction">  </div>
-
-
-                      </div>
+ 
+                      
 
 
                    </div>
