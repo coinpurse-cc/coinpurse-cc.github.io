@@ -43,7 +43,8 @@ export default {
     props:['networkName','web3Plug','onSelectedAssetCallback'],
   data() {
     return {
-      tokenDataArray:[]
+      tokenDataArray:[],
+      forceSelectAsset: null 
     }
   },
    mounted(){
@@ -110,6 +111,12 @@ export default {
 
         dataArrayCache.push( tokenFullData )
 
+
+          console.log('this.forceSelectAsset', this.forceSelectAsset)
+        if(this.forceSelectAsset && this.forceSelectAsset.toLowerCase() == tokenFullData.address.toLowerCase()){
+          this.onSelectedAssetCallback(tokenFullData)
+        }
+
        }
 
         this.tokenDataArray = Object.assign({},dataArrayCache)
@@ -120,6 +127,25 @@ export default {
     },
     clickedAsset(asset){
       this.onSelectedAssetCallback(asset)
+    },
+    forceSelectAssetWithAddress(tokenAddress){
+        let assetData = {}
+
+        this.forceSelectAsset = tokenAddress
+
+    console.log('forceSelectAsset', this.forceSelectAsset)
+
+
+      for(let tokenData of this.tokenDataArray){
+        
+          if(tokenData.address.toLowerCase() == tokenAddress.toLowerCase()){
+            
+            this.onSelectedAssetCallback(tokenData)
+            return 
+          }
+      }
+
+     
     }
   }
 }

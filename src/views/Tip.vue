@@ -54,10 +54,11 @@
       <section class="hero   "  v-if="connectedToWeb3()==true">
         <div class="hero-body">
 
-          <ActionContainer
+          <TippingContainer
             v-bind:shouldRender="true"
             v-bind:selectedActionAsset="selectedActionAsset"
             v-bind:web3Plug="web3Plug"
+            v-bind:urlParameters=urlParameters
            />
 
 
@@ -65,12 +66,14 @@
 
 		
             <AssetList 
+            ref="assetList"
+
               v-if="connectedToWeb3()==true"
               v-bind:networkName='networkName'
               v-bind:onSelectedAssetCallback='onSelectedAssetCallback'
               v-bind:web3Plug="web3Plug"
             />
-
+ 
 
                   
         </div>
@@ -88,12 +91,12 @@
 
 <script >
  
- //http://localhost:8080/#/tip?from=0x2Ff750729D8f66E18825882fB54914252Cb039Aa&to=0x2Ff750729D8f66E18825882fB54914252Cb039Aa&amt=5000
+ //http://localhost:8080/#/tip?from=0x2Ff750729D8f66E18825882fB54914252Cb039Aa&to=0x2Ff750729D8f66E18825882fB54914252Cb039Aa&tokenaddress=0x370825bc4F39C72BA84d290dB131bcCB35aA1D49&amount=20000000
 
 
 import Web3Plug from '../js/web3Plug.js'
 
-import ActionContainer from './components/ActionContainer.vue'
+import TippingContainer from './components/TippingContainer.vue'
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
 import Web3NetButton from './components/Web3NetButton.vue'
@@ -101,11 +104,17 @@ import Web3NetButton from './components/Web3NetButton.vue'
 import AssetList from './components/AssetList.vue'
 import DropZone from './components/DropZone.vue'
 
+import Vue from 'vue'
+
 import ParamHelper from '../js/param-helper' 
+
+
+const tokenList = require('../config/token-list.json')
+
 
 export default {
   name: 'Wallet',
-  components: {Navbar, Footer,ActionContainer,Web3NetButton, AssetList, DropZone},
+  components: {Navbar, Footer,TippingContainer,Web3NetButton, AssetList, DropZone},
   data() {
     return {
 		selectedActionAsset: null,
@@ -119,18 +128,7 @@ export default {
     }
   },
   created(){
-        let fromParam = ParamHelper.getParameterByName('from')
-        let toParam = ParamHelper.getParameterByName('to')
-        let amtParam = ParamHelper.getParameterByName('amt')
-
-     
-      this.urlParameters = {
-        from: fromParam,
-        to: toParam,
-        amt: parseInt(amtParam) 
-      } 
-
-      console.log('url params',this.urlParameters )
+       
     
   },
   methods: {
@@ -164,6 +162,16 @@ export default {
 
  
           console.log('networkName', this.networkName )
+
+            this.buildUrlParamsData()
+
+
+        Vue.nextTick(function () {
+          this.$refs.assetList.forceSelectAssetWithAddress( this.urlParameters.tokenAddress  )
+        }.bind(this))
+
+
+         
     },
 
     connectedToWeb3(){
@@ -189,6 +197,48 @@ export default {
       this.selectedActionAsset = asset
     },
 
+  buildUrlParamsData(){
+     let fromParam = ParamHelper.getParameterByName('from')
+        let toParam = ParamHelper.getParameterByName('to')
+        let tokenAddressParam = ParamHelper.getParameterByName('tokenaddress')
+        let amtParam = ParamHelper.getParameterByName('amount')
+
+        let tokenDataList =  tokenList.networks[this.networkName]
+       
+        let contractData = this.web3Plug.getContractDataForActiveNetwork();
+        
+
+        for(let tokenName of tokenDataList){
+          let tokenContractData = contractData[tokenName]
+
+          if( tokenContractData.address.toLowerCase() == tokenAddressParam.toLowerCase() ){
+
+            let decimals = tokenContractData.decimals 
+
+            let amountFormatted = this.web3Plug.rawAmountToFormatted(amtParam, decimals)
+
+
+             this.urlParameters = {
+              from: fromParam,
+              to: toParam,
+              amountRaw: parseInt(amtParam),
+              amountFormatted: amountFormatted,
+              decimals: decimals,
+              tokenAddress: tokenAddressParam
+            } 
+
+             console.log('url params',this.urlParameters )
+
+            return 
+          } 
+        }
+     
+     
+
+     
+
+     
+  }
 
 
   }
