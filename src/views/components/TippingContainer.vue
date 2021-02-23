@@ -246,7 +246,7 @@
                              
 
 
-                             <table class="table-auto">
+                             <table class="table-auto bg-gray-800 text-gray-200 p-2 m-2">
                                   <thead>
                                     <tr> 
                                       <th> </th>
@@ -255,8 +255,13 @@
                                   </thead>
                                   <tbody>
                                     <tr>
-                                      <td>Tx Hash</td>
-                                      <td v-if="broadcastResults.txdata">{{broadcastResults.txdata.txhash}}</td>
+                                      <td class="p-2 ">Tx Hash</td>
+                                      <td class="p-2 overflow-ellipsis overflow-hidden" style="max-width:340px" v-if="broadcastResults.txdata">
+ 
+                                        <a class="text-blue-400" target="_blank" v-bind:href=" 'https://blockscout.com/poa/xdai/tx/'+broadcastResults.txdata.txhash ">
+                                        {{broadcastResults.txdata.txhash}}
+                                        </a>
+                                      </td>
                                       
                                     </tr>
                                     <tr class="bg-emerald-200">
@@ -281,7 +286,7 @@
 
                       <div class="whitespace-sm"></div>
 
-                       <div class="form-group padding-md" v-if="lavaMetadata">
+                       <div class="form-group padding-md" v-if="lavaMetadata && !broadcastResults">
                            <div> Meta Packet </div> 
                           <textarea class="text-black" v-model="lavaMetadata"></textarea>
                        
@@ -291,11 +296,14 @@
 
 
                       <div class="whitespace-sm"></div>
+                      <div v-if="lavaMetadata && !broadcastResults">
 
-                       <div class="button inline-block bg-purple-500 hover:bg-purple-700 text-white font-bold m-2 py-2 px-4 rounded cursor-pointer" v-if="lavaMetadata" v-on:click="actionSubmitLava"> Submit Lava Tx </div>
+                          <div class="button inline-block bg-purple-500 hover:bg-purple-700 text-white font-bold m-2 py-2 px-4 rounded cursor-pointer" v-if="lavaMetadata" v-on:click="actionSubmitLava"> Submit Lava Tx </div>
 
-                      <div class="loader inline-block" v-if="pendingTransaction">  </div>
+                          <div class="loader inline-block" v-if="pendingTransaction">  </div>
 
+                          
+                      </div>
 
 
                    </div>
@@ -666,7 +674,7 @@ export default {
                     if(mostRecentTransaction.status != 'pending' && mostRecentTransaction.status != 'queued'){
                         this.broadcastResults = Object.assign({},mostRecentTransaction) 
 
-                        console.log("broadcastResults",broadcastResults)
+                         console.log("broadcastResults",this.broadcastResults)
 
                           preBroadcastPacketHistory = null 
                     }
