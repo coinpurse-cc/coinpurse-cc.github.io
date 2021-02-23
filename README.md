@@ -14,6 +14,9 @@
 3. Integrate honeyswap into this (middleman contract)
  
   
+  //https://coinpurse.cc/#/tip?to=0x2Ff750729D8f66E18825882fB54914252Cb039Aa&amt=0.0000001
+
+  
 
 ## How to Run
 1. install node10
