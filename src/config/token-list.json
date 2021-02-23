@@ -1,9 +1,9 @@
 {"networks": {
-  "mainnet":["DAI"],
+    "mainnet":[ ],
     
   
     "kovan":[ "TEST" ],
-    "xdai":[ "wxdai" , "weth"]
+    "xdai":[ "zxbtc"  ]
 
   }
 }

@@ -7,8 +7,8 @@
       <div class="flex-grow">
         <div class="h-full py-6">
           <a href="/" class="brand w-nav-brand w--current  ">
-            <img src="/assets/images/logo.png" height="35"  alt="" class="w-6 m-2 inline">
-            <div class=" text-block-10 inline">Meta Wallet</div>
+            <img src="/assets/images/0xbtc_8.png" height="75"  alt="" class="w-6 m-2 inline">
+            <div class=" text-block-10 inline">Coinpurse.cc</div>
         </a>
        </div>
       </div>

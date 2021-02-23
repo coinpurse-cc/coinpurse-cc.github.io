@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Wallet from './views/Wallet.vue'
+import Tip from './views/Tip.vue'
   
 import NotFound from './views/NotFound.vue'
 
@@ -14,6 +15,11 @@ export default new Router({
       path: '/',
       name: 'wallet',
       component: Wallet
+    },
+    {
+      path: '/tip',
+      name: 'tip',
+      component: Tip
     },
 
      
