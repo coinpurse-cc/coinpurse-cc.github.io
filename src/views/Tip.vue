@@ -88,6 +88,9 @@
 
 <script >
  
+ //http://localhost:8080/#/tip?from=0x2Ff750729D8f66E18825882fB54914252Cb039Aa&to=0x2Ff750729D8f66E18825882fB54914252Cb039Aa&amt=5000
+
+
 import Web3Plug from '../js/web3Plug.js'
 
 import ActionContainer from './components/ActionContainer.vue'
@@ -116,12 +119,13 @@ export default {
     }
   },
   created(){
-
+        let fromParam = ParamHelper.getParameterByName('from')
         let toParam = ParamHelper.getParameterByName('to')
         let amtParam = ParamHelper.getParameterByName('amt')
 
      
       this.urlParameters = {
+        from: fromParam,
         to: toParam,
         amt: parseInt(amtParam) 
       } 
