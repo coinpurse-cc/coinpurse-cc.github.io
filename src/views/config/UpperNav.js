@@ -4,7 +4,7 @@ const config={
      
       {"title":"COMMUNITY","rows":[
          
-        {"title":"Github","url":"https://github.com/admazzola/metawallet-web"},
+        {"title":"Github","url":"https://github.com/coinpurse-cc"},
       
       ]} 
     ]
