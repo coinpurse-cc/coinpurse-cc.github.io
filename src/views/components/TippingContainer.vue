@@ -331,7 +331,8 @@ export default {
          transferTokenRelayReward:0,
          relayAuthorityType:['any relayers'],
 
-        relayNodeURL:'wss://xdai.apexrelay.com:8443',
+  //'wss://xdai.apexrelay.com:8443',
+        relayNodeURL:'wss://apexrelay.com:8443',
         broadcastMessage: null, //msg back from relay 
 
         lavaMetadata: null 
