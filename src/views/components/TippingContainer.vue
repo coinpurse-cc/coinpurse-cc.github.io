@@ -170,7 +170,7 @@
             <div class=" ">
             
 
-              <p> Generate a signed Lava Transfer Message.  This message can be submitted to the Ethereum network by anyone, at which point the tokens will be transferred to the recipient's account.  </p>
+              <p> Generate a signed Meta Transaction Message.  This message can be submitted to the EVM by anyone, at which point the tokens will be transferred to the recipient's account.  </p>
 
 
               <div class="whitespace-sm"></div>
@@ -242,6 +242,37 @@
                              {{ broadcastMessage }}
                            </div>
 
+                           <div class="subtitle color-primary has-text-centered" v-cloak v-if="lavaMetadata && broadcastResults" >
+                             
+
+
+                             <table class="table-auto">
+                                  <thead>
+                                    <tr> 
+                                      <th> </th>
+                                      <th> </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>Tx Hash</td>
+                                      <td v-if="broadcastResults.txdata">{{broadcastResults.txdata.txhash}}</td>
+                                      
+                                    </tr>
+                                    <tr class="bg-emerald-200">
+                                      <td>Status</td>
+                                      <td> {{broadcastResults.status}}</td>
+                                      
+                                    </tr>
+                                     
+                                  </tbody>
+                                </table>
+
+
+
+                           </div>
+
+
                              <div class="whitespace-sm"></div>
                        </div>
 
@@ -311,6 +342,9 @@ const lavaWalletABI = require('../../abi/LavaWallet.json')
  const axios = require('axios')
 
 
+var preBroadcastPacketHistory 
+var packetHistoryInterval
+
 export default {
   name: 'TippingContainer',
   props: ['shouldRender','selectedActionAsset', 'urlParameters', 'web3Plug'],
@@ -331,9 +365,10 @@ export default {
          transferTokenRelayReward:0,
          relayAuthorityType:['any relayers'],
 
-  //'wss://xdai.apexrelay.com:8443',
+          //'wss://xdai.apexrelay.com:8443',
         relayNodeURL:'wss://xdai.apexrelay.com:8443',
         broadcastMessage: null, //msg back from relay 
+        broadcastResults: null,
 
         lavaMetadata: null 
     }
@@ -344,6 +379,15 @@ export default {
     
     this.transferTokenRecipient = this.urlParameters.from
     this.transferTokenQuantity = this.urlParameters.amountFormatted
+
+
+    packetHistoryInterval =  setInterval(this.pollForPacketHistory.bind(this),5000)
+
+  },
+
+  beforeDestroy(){
+
+      clearInterval(packetHistoryInterval)
 
   },
   methods: {
@@ -479,6 +523,12 @@ export default {
         }
  
 
+
+          this.broadcastMessage = null
+          this.broadcastResults = null
+
+
+
            console.log('lavaPacketInputData',lavaPacketInputData)
 
         let signResult = await LavaPacketUtils.performOffchainSignForLavaPacket(lavaPacketInputData, this.web3Plug)
@@ -542,6 +592,20 @@ export default {
           let dataToPost = metadata
 
           this.broadcastMessage = null
+          this.broadcastResults = null
+
+
+              let allAccounts = await this.web3Plug.getConnectedAccounts() 
+            let primaryAddress =  window.web3.utils.toChecksumAddress( allAccounts[0] ) 
+
+
+         let packetHistoryResponse = await  MetaPacketHelper.getPacketHistory(fullURL, primaryAddress  )
+
+        if(packetHistoryResponse.success){
+            preBroadcastPacketHistory = packetHistoryResponse.packetsArray
+
+        }
+         
   
          let response = await  MetaPacketHelper.sendLavaPacket(fullURL,dataToPost)
   
@@ -557,7 +621,68 @@ export default {
  
  
       },
- 
+
+
+      async pollForPacketHistory(){
+        console.log('poll for packet history ')
+
+
+         
+          let fullURL = this.relayNodeURL 
+
+
+
+          let allAccounts = await this.web3Plug.getConnectedAccounts() 
+          let primaryAddress =  window.web3.utils.toChecksumAddress( allAccounts[0] ) 
+
+
+
+
+          /* let testpacketHistoryResponse = await  MetaPacketHelper.getPacketHistory(fullURL, primaryAddress  )
+            let testpackets = testpacketHistoryResponse.packetsArray
+           console.log( 'testpackets',testpackets, testpackets.length )*/
+
+
+
+
+
+
+        //  console.log('preBroadcastPacketHistory', preBroadcastPacketHistory.length, preBroadcastPacketHistory)
+
+          if(preBroadcastPacketHistory && preBroadcastPacketHistory.length > 0){
+             let updatedPacketHistoryResponse = await  MetaPacketHelper.getPacketHistory(fullURL, primaryAddress  )
+
+             if(updatedPacketHistoryResponse.success){
+                let updatedPacketsArray = updatedPacketHistoryResponse.packetsArray
+
+                console.log('updatedPacketsArray',updatedPacketsArray)
+
+                  if( updatedPacketsArray && updatedPacketsArray.length > preBroadcastPacketHistory.length   ){
+
+                    let mostRecentTransaction = updatedPacketsArray[0]
+
+                    console.log('learned of most recent tx ', mostRecentTransaction)
+
+                    if(mostRecentTransaction.status != 'pending' && mostRecentTransaction.status != 'queued'){
+                        this.broadcastResults = Object.assign({},mostRecentTransaction) 
+
+                        console.log("broadcastResults",broadcastResults)
+
+                          preBroadcastPacketHistory = null 
+                    }
+
+                   
+                  }
+
+
+             }
+
+          
+          }
+
+           
+
+      },
 
 
       //---------------------------

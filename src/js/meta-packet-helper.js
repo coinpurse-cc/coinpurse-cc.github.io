@@ -71,6 +71,35 @@ export default class MetaPacketHelper {
   }
 
 
+  static async getPacketHistory(relayNodeURL, publicAddress){
+
+
+
+    return new Promise(async resolve => {
+
+      //const socket = io("https://server-domain.com");
+
+      const socket = io( relayNodeURL );
+
+      
+      socket.emit("recentPacketHistory", {publicAddress: publicAddress} );
+
+
+      socket.on("recentPacketHistory",(data) => {
+        console.log('got back',data)
+        resolve(data)
+      });
+
+     
+
+    })
+
+
+
+  }
+
+  
+
 
   static async sendPermitPacket(relayNodeURL, metaPacketData)
   {

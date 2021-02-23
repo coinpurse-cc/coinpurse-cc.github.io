@@ -211,7 +211,7 @@ export default {
         for(let tokenName of tokenDataList){
           let tokenContractData = contractData[tokenName]
 
-          if( tokenContractData.address.toLowerCase() == tokenAddressParam.toLowerCase() ){
+          if(tokenAddressParam &&  tokenContractData.address.toLowerCase() == tokenAddressParam.toLowerCase() ){
 
             let decimals = tokenContractData.decimals 
 
