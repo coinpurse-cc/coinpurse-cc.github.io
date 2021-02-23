@@ -1,41 +1,22 @@
 
- ## Meta Transactions Portal
+ ## Coinpurse cc 
 
 
  This dapp lets you transfer XDAI tokens with Meta Transactions
 
 
 #### TODO 
-https://www.xdaichain.com/for-developers/developer-resources/meta-transactions
+1. Build a new discord bot that will generate magic links to this frontend  (use query params like ?= blah blah )
 
-https://kovan.etherscan.io/address/0xf5b71f8d25d3e90b9ec0c08d890853187df4bef4#writeContract
-
-
-//https://github.com/poanetwork/tokenbridge-contracts/tree/master/test/helpers
-integrate eip712-sign-permit
-
-
-1.   Make matic approve type tokens work  (deploy one to kovan , a third tab) 
-
-  
-
-
-2.  Deploy a middleman contract that uses mload 
+2. The user will click on the link to finish their tipping actions.  Apex Relay Meta tx will be used so they dont have to pay gas ! 
 
 
 
-
-![image](https://user-images.githubusercontent.com/6249263/72673879-ed7c8c00-3a3d-11ea-8aa0-df98f0cff530.png)
-
-
- This application uses EIP712 and PersonalSign in order to allow you to sign an 'offchain packet of data' which contains data describing a transaction that you want to be performed, like transferring ERC20 tokens.  
-
-
-Relays can pay gas to submit the signed 'datagram' to the EVM network  
+ 
   
 
 ## How to Run
-1. install node8
+1. install node10
 2. install dependencies with 'npm install'
 3.  npm run dev
 
