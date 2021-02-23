@@ -302,7 +302,7 @@
 
                           <div class="loader inline-block" v-if="pendingTransaction">  </div>
 
-                          
+
                       </div>
 
 
@@ -385,7 +385,7 @@ export default {
 
     //format 
     
-    this.transferTokenRecipient = this.urlParameters.from
+    this.transferTokenRecipient = this.urlParameters.to
     this.transferTokenQuantity = this.urlParameters.amountFormatted
 
 
