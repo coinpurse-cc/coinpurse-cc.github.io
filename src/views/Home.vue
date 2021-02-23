@@ -37,15 +37,15 @@
         </div>
 
           <div class="whitespace-md"></div>
-            <div class="flex flex-col content-center justify-center w-full ">  
-              <div  style="margin:0 auto" >
-               <a  class=" mx-2 p-4 bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" href="https://discord.com/api/oauth2/authorize?client_id=813641559265378344&permissions=3072&scope=bot" target="_blank">
+            <div class="flex flex-wrap  content-center justify-center w-full ">  
+               
+               <a  class=" m-2 p-4 bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50" href="https://discord.com/api/oauth2/authorize?client_id=813641559265378344&permissions=3072&scope=bot" target="_blank">
                 Invite Coinpurse Bot into Discord! </a> 
 
 
-                 <a   class="mx-2  p-4 bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-opacity-50" href="https://discord.com/invite/JGEqqmS" target="_blank">
+                 <a   class="m-2  p-4 bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-opacity-50" href="https://discord.com/invite/JGEqqmS" target="_blank">
                 Try it out in the 0xBTC Discord </a> 
-            </div>
+            
                 
 
 
