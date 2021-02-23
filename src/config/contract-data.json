@@ -1,0 +1,28 @@
+{"networks": {
+    "mainnet":{
+      "wEth":{"name":"Wrapped Ether", "symbol":"wEth", "decimals": 18,  "address":"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2" },
+      "0xBTC":{"name":"0xBitcoin", "symbol":"0xBTC",  "decimals": 8, "supportsDelegateCallDeposit":true, "address":"0xb6ed7644c69416d67b522e20bc294a9a9b405b31" },
+      "DAI":{"name":"DAI Stablecoin", "symbol":"DAI", "decimals": 18, "address":"0x6b175474e89094c44da98b954eedeac495271d0f" }
+
+    },
+    "kovan":{
+      "TEST":{"name":"Test Token", "symbol":"TEST", "decimals": 18,  "address":"0x7b3a2c7d65c357fa4ccf4ba93d3c0781b843a4f3", "imgurl":"/assets/images/tokens/dai.png" }, 
+      "LavaWallet":{"name":"Lava Wallet", "address":"0xcaee7daa8c6f56fa8dcdc5b77b2178dbc374e25c"},
+      "SimpleMiddleman":{"name":"Simple Middleman", "address":"0x09b025d93cc1198db1f2030c7a25c9864f0fb08e"},
+      "MetadataMiddleman":{"name":"Metadata Middleman", "address":"0x135f0c1009c8ed6b049a52b41a636d2c72aa1d46"}
+      
+    },
+    "xdai":{
+       
+      "LavaWallet":{"name":"Lava Wallet", "address":"0x56398FdFD684b40B17B09BB1Cf826ED93A38C489"},
+       
+    
+      "weth":{"name":"wEth", "decimals":18, "address":"0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1", "imgurl":"/assets/images/tokens/weth.png" },
+      "wxdai":{"name":"wxDai", "decimals":18, "address":"0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d", "imgurl":"/assets/images/tokens/dai.png" },
+      "zxbtc":{"name":"0xBTC", "decimals":8, "address":""} 
+
+      
+    }
+
+  }
+}

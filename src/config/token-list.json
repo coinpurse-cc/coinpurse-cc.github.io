@@ -1,0 +1,9 @@
+{"networks": {
+  "mainnet":["DAI"],
+    
+  
+    "kovan":[ "TEST" ],
+    "xdai":[ "wxdai" , "weth"]
+
+  }
+}
