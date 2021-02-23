@@ -11,7 +11,7 @@
 2. The user will click on the link to finish their tipping actions.  Apex Relay Meta tx will be used so they dont have to pay gas ! 
 
 
-
+3. Integrate honeyswap into this (middleman contract)
  
   
 
